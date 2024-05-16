@@ -2,15 +2,21 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import logoSvg from '../assets/logo-magneto.png';
 import { useAuth } from '../context/AuthContext';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const {signin, errors: loginErrors} = useAuth();
-  
+  const {signin, errors: loginErrors, isAuthenticated} = useAuth();
+  const navigate = useNavigate();
   const onSubmit = data => {
     signin(data)
   };
+
+  useEffect(() => {
+    if(isAuthenticated) navigate('/');
+  },[isAuthenticated])
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
