@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import logoSvg from '../assets/logo-magneto.png';
-import { registerRequest } from '../api/auth';
-
-const RegisterForm = () => {
+import {useAuth} from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+const RegisterPage = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const {signup, user, isAuthenticated, errors:registerErrors} = useAuth();
+  console.log(user)
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(isAuthenticated) navigate('/');
+  },[isAuthenticated])
 
   const onSubmit = async data => {
-    console.log('Nombre de usuario:', data.username);
-    console.log('Email:', data.email);
-    console.log('Contraseña:', data.password);
-    const res = await registerRequest(data);
-    console.log(res);
+    signup(data)
   };
 
   return (
@@ -21,6 +25,9 @@ const RegisterForm = () => {
           <img src={logoSvg} alt="Logo" className="mx-auto" />
           <h1 className="text-3xl font-bold text-gray-800">Panel</h1>
         </div>
+        {
+          registerErrors.map((error, index) => <p key={index} className="text-red-500 text-sm mt-1">{error}</p>)
+        }
         <form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
           <div className="mb-4">
             <label htmlFor="username" className="block text-gray-700 font-bold mb-2">
@@ -68,7 +75,7 @@ const RegisterForm = () => {
             >
               Registrarse
             </button>
-            <a href="#" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+            <a href="login" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
               ¿Ya tienes una cuenta?
             </a>
           </div>
@@ -78,4 +85,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default RegisterPage;

@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const TOKEN_SECRET = process.env.TOKEN_SECRET;
+export const TOKEN_SECRET = process.env.TOKEN_SECRET;
 const token_secret = 'secret token'
 
 export function createAccessToken(payload){

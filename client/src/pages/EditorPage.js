@@ -8,7 +8,7 @@ import gjsNavbar from 'grapesjs-navbar';
 
 import "../styles/main.css";
 
-function App() {
+function EditorPage() {
   const [editor, setEditor] = useState(null);
     useEffect(() => {
       const editor = grapesjs.init({
@@ -27,13 +27,10 @@ function App() {
     
   
     return (
-      
       <div className="App" >
-        {/* <Builder/> */}
         <div id="editor"></div>
-        
       </div>
     );
 }
 
-export default App;
+export default EditorPage;
