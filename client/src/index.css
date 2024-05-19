@@ -20,16 +20,16 @@ html {
     display: none;
 }
 
-.gjs-cv-canvas {
-    /* background-color: #fff !important; */
-    /* position: relative; */
+
+
+.gjs-editor-cont{
+    height: calc(100vh - 48px) !important;
 }
 
-.gjs-pn-panel {
-    /* background-color: #fff !important; */
-    /* position: fixed; */
+.gjs-block-label {
+    font-size: 1rem;
 }
-
-.tooltip {
-    inset-area: top;
-}
+.gjs-block-label .fa {
+    font-size: 3rem;
+  }
+  
