@@ -32,4 +32,7 @@ html {
 .gjs-block-label .fa {
     font-size: 3rem;
   }
-  
+
+.swiper-container {
+    position: relative !important;
+}
