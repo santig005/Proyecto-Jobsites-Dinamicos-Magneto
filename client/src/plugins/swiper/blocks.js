@@ -4,12 +4,13 @@ export default (editor, opts = {}) => {
     .swiper-container {
       width: 600px;
       height: 300px;
+      
     }
     .swiper-slide {
       text-align: center;
       font-size: 18px;
       background: #fff;
-  
+      
       /* Center slide text vertically */
       display: -webkit-box;
       display: -ms-flexbox;
@@ -41,12 +42,13 @@ export default (editor, opts = {}) => {
       </div> 
       `,
       category: opts.category,
-      content: `<div class="swiper-container mySwiper">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">Slide 1</div>
-        <div class="swiper-slide">Slide 2</div>
-        <div class="swiper-slide">Slide 3</div>
-      </div>
+      content: `
+      <div class="swiper-container mySwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">Nada 1</div>
+          <div class="swiper-slide">Nada 2</div>
+          <div class="swiper-slide">Nada 3</div>
+        </div>
       
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
