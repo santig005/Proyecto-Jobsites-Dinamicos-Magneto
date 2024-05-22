@@ -33,7 +33,7 @@ function EditorPage() {
     setEditor(editor);
   }, []);
 
-  const {logout} = useAuth()
+  const {user,logout} = useAuth()
 
   const handleLogout = () => {
     logout()
@@ -64,6 +64,50 @@ function EditorPage() {
     }
   };
 
+  const saveHtmlAndCss = async () => {
+    const { username, email,id } = user;
+    if (editor) {
+      const htmlCode = editor.getHtml();
+      const cssCode = editor.getCss();
+      const currentTime = new Date();
+      const edition_date= currentTime.toLocaleDateString();
+      const edition_time=currentTime.toLocaleTimeString();
+
+      const dataToSend = {
+        htmlCode,
+        cssCode,
+        username,
+        email,
+        id_user:id,
+        edition_date,
+        edition_time
+      };
+
+      try {
+        const response = await fetch("http://localhost:5000/api/save", {
+          method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+          body:  JSON.stringify(dataToSend),
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          console.log("File saved successfully:", data);
+        } else {
+          const errorData = await response.json();
+          console.log("Failed to save file:", errorData);
+        }
+      } catch (error) {
+        console.log("Error saving file:", error);
+      }
+    } else {
+      console.log("Editor instance not available");
+    }
+  };
+  
+
   return (
     <div className="App">
       <nav className="bg-gray-200 py-2 px-6 flex justify-between items-center">
@@ -71,6 +115,12 @@ function EditorPage() {
         <img src={logoSvg} alt="Logo" className="h-8" />
       </div>
       <div className="buttons">
+      <Link
+          to="/save" onClick={saveHtmlAndCss} 
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mr-4"
+        >
+          Guardar Página
+        </Link>
         <button
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mr-4"
           onClick={getHtmlAndCss}

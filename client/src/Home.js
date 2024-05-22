@@ -13,10 +13,10 @@ export default function Home() {
         <Routes>
             <Route path='/login' element={<LoginPage/>}/>
             <Route path='/register' element={<RegisterPage/>}/>
-
             <Route element={<ProtectedRoute/>}>
               <Route path='/' element={<InfoPage/>}/>
               <Route path='/editor' element={<EditorPage/>}/>
+              <Route path='/save' element={<EditorPage/>}/>
             </Route>
         </Routes>
     </BrowserRouter>
