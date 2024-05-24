@@ -34,3 +34,15 @@ export const saveHtmlAndCss = async (req, res) => {
         res.status(500).send({ message: 'Failed to save file' });
     }
 };
+export const getPageRequests=async(req,res)=>{
+    try{
+        await client.connect();
+        const db = client.db('magneto-proyecto'); // replace with your database name
+        const collection = db.collection('pages'); // replace with your collection name
+        const pages = await collection.find({}).toArray();
+        res.status(200).send({pages});
+    }catch(error){
+        console.error(`Error: ${error}`);
+        res.status(500).send({ message: 'Failed to get pages' });
+    }
+};
