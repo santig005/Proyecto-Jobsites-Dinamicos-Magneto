@@ -1,5 +1,5 @@
 import React from "react";
-import data from "../assets/data.json";
+//import data from "../assets/data.json";
 import {
   useReactTable,
   getCoreRowModel,
@@ -7,11 +7,15 @@ import {
   getPaginationRowModel,
 } from "@tanstack/react-table";
 
-function TableAdmin() {
+function TableAdmin({ data }) {
   const columns = [
     {
       accessorKey: "_id",
       header: "ID",
+    },
+    {
+      accessorKey: "username",
+      header: "Empresa",
     },
     {
       accessorKey: "email",
@@ -28,6 +32,10 @@ function TableAdmin() {
     {
       accessorKey: "edition_date",
       header: "Edition Date",
+    },
+    {
+      accessorKey: "edition_time",
+      header: "Edition Time",
     },
   ];
   const table = useReactTable({
@@ -62,6 +70,14 @@ function TableAdmin() {
                   )}
                 </th>
               ))}
+              <th
+                  key="acciones"
+                  scope="col"
+                  className="w-230 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+
+                >
+                  Acciones
+                </th>
             </tr>
           ))}
         </thead>
@@ -73,6 +89,84 @@ function TableAdmin() {
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
+              <td>
+                <button
+                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={()=>console.log(data[row.id]._id)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    className="w-4 h-4 inline-block mr-1"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Aprobar
+                </button>
+                <button
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    className="w-4 h-4 inline-block mr-1"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                  Rechazar
+                </button>
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  className="w-4 h-4 inline-block mr-1"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 4v12m0 0l-3-3m3 3l3-3m-6 6h6"
+                  />
+                </svg>
+                  Revisar
+                </button>
+                <button
+                className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded inline-flex items-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  className="w-4 h-4 mr-2"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 10h.01M12 10h.01M16 10h.01M21 16v-5a2 2 0 00-2-2H5a2 2 0 00-2 2v5a2 2 0 002 2h14l4 4-.01-4z"
+                  />
+                </svg>
+                Comentar
+              </button>
+              </td>
             </tr>
           ))}
         </tbody>
