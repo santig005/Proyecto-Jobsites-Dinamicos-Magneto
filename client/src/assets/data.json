@@ -1,0 +1,143 @@
+[
+    {
+      "_id": "77f12gg1280as3m456a",
+      "email": "juan@gmail.com",
+      "verified": true,
+      "validated": true,
+      "edition_date": "23/05/2024"
+    },
+    {
+      "_id": "82f43ab3948dc5e192b",
+      "email": "maria@hotmail.com",
+      "verified": false,
+      "validated": false,
+      "edition_date": "23/05/2024"
+    },
+    {
+      "_id": "96g50ef1732hi8j427c",
+      "email": "luis@yahoo.com",
+      "verified": true,
+      "validated": false,
+      "edition_date": "23/05/2024"
+    },
+    {
+      "_id": "12d78kl9084mn6o543p",
+      "email": "ana@example.com",
+      "verified": false,
+      "validated": true,
+      "edition_date": "23/05/2024"
+    },
+    {
+      "_id": "63a45op6578qr2s819t",
+      "email": "carlos@outlook.com",
+      "verified": true,
+      "validated": true,
+      "edition_date": "23/05/2024"
+    },
+    {
+      "_id": "24q79mn4321xy5z806u",
+      "email": "laura@gmail.com",
+      "verified": false,
+      "validated": false,
+      "edition_date": "23/05/2024"
+    },
+    {
+      "_id": "17u30rs2946vw8x512y",
+      "email": "pablo@yahoo.com",
+      "verified": true,
+      "validated": true,
+      "edition_date": "23/05/2024"
+    },
+    {
+      "_id": "58v92tu4380wx7y146z",
+      "email": "elena@hotmail.com",
+      "verified": false,
+      "validated": true,
+      "edition_date": "23/05/2024"
+    },
+    {
+      "_id": "29w85xy5632zv4a197b",
+      "email": "diego@example.com",
+      "verified": true,
+      "validated": false,
+      "edition_date": "23/05/2024"
+    },
+    {
+      "_id": "37z11ab6325cd4e987f",
+      "email": "sara@outlook.com",
+      "verified": false,
+      "validated": true,
+      "edition_date": "23/05/2024"
+    },
+    {
+      "_id": "75b23cd8521ef6g409h",
+      "email": "lucas@gmail.com",
+      "verified": true,
+      "validated": false,
+      "edition_date": "23/05/2024"
+    },
+    {
+      "_id": "46e39fg5678hi2j419k",
+      "email": "claudia@yahoo.com",
+      "verified": false,
+      "validated": false,
+      "edition_date": "23/05/2024"
+    },
+    {
+      "_id": "98h24ij7635kl1m507n",
+      "email": "juan@example.com",
+      "verified": true,
+      "validated": true,
+      "edition_date": "23/05/2024"
+    },
+    {
+      "_id": "57i10kl5432mn8o396p",
+      "email": "patricia@hotmail.com",
+      "verified": false,
+      "validated": true,
+      "edition_date": "23/05/2024"
+    },
+    {
+      "_id": "63k85mn1074op3q298r",
+      "email": "pedro@outlook.com",
+      "verified": true,
+      "validated": false,
+      "edition_date": "23/05/2024"
+    },
+    {
+      "_id": "28o64pq5093rs7t412u",
+      "email": "andrea@gmail.com",
+      "verified": false,
+      "validated": false,
+      "edition_date": "23/05/2024"
+    },
+    {
+      "_id": "49r32st8765uv1w503x",
+      "email": "daniel@yahoo.com",
+      "verified": true,
+      "validated": true,
+      "edition_date": "23/05/2024"
+    },
+    {
+      "_id": "84t53uv2761wx9y405z",
+      "email": "elisa@example.com",
+      "verified": false,
+      "validated": true,
+      "edition_date": "23/05/2024"
+    },
+    {
+      "_id": "39w46xy7210zv8a513b",
+      "email": "luisa@outlook.com",
+      "verified": true,
+      "validated": false,
+      "edition_date": "23/05/2024"
+    },
+    {
+      "_id": "60z85ab7362cd4e109f",
+      "email": "roberto@gmail.com",
+      "verified": false,
+      "validated": false,
+      "edition_date": "23/05/2024"
+    }
+  ]
+  
