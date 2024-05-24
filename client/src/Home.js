@@ -6,11 +6,13 @@ import RegisterPage from './pages/RegisterPage'
 import { AuthProvider } from './context/AuthContext'
 import InfoPage from './pages/InfoPage'
 import ProtectedRoute from './ProtectedRoute'
+import AdminHomePage from './pages/AdminHomePage'
 export default function Home() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
+            <Route path='/admin' element={<AdminHomePage/>}/>
             <Route path='/login' element={<LoginPage/>}/>
             <Route path='/register' element={<RegisterPage/>}/>
             <Route element={<ProtectedRoute/>}>
