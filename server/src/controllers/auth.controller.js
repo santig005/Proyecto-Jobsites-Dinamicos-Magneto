@@ -4,7 +4,7 @@ import { createAccessToken } from "../libs/jwt.js";
 import jwt from "jsonwebtoken";
 import { TOKEN_SECRET } from "../libs/jwt.js";
 export const register = async(req, res) => {
-    const {username, email, password} = req.body
+    const {username, email, password, role} = req.body
     
     try{
 
@@ -17,7 +17,8 @@ export const register = async(req, res) => {
         const newUser = new User({
             username, 
             email, 
-            password: passwordHash
+            password: passwordHash,
+            role
         })
 
         const userSaved = await newUser.save()
@@ -27,7 +28,8 @@ export const register = async(req, res) => {
         res.json({
             id: userSaved._id,
             username: userSaved.username,
-            email: userSaved.email
+            email: userSaved.email,
+            role: userSaved.role
         })
     }catch(error){
         res.status(500).json({message: error.message})
@@ -35,7 +37,7 @@ export const register = async(req, res) => {
 }
 
 export const login = async(req, res) => {
-    const {email, password} = req.body
+    const {email, password, role} = req.body
     
     try{
         const userFound = await User.findOne({email})
@@ -52,7 +54,8 @@ export const login = async(req, res) => {
         res.json({
             id: userFound._id,
             username: userFound.username,
-            email: userFound.email
+            email: userFound.email,
+            role: userFound.role
         })
     }catch(error){
         res.status(500).json({message: error.message})
