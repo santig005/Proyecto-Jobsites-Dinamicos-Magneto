@@ -5,6 +5,7 @@ import {
   getCoreRowModel,
   flexRender,
   getPaginationRowModel,
+  getSortedRowModel,
 } from "@tanstack/react-table";
 
 function TableAdmin({ data }) {
@@ -22,31 +23,68 @@ function TableAdmin({ data }) {
       header: "Email",
     },
     {
-      accessorKey: "verified",
-      header: "Verified",
+      accessorKey: "validated",
+      header: "Validado",
+      cell: ({ getValue }) => (
+        <span
+          className={`px-2 py-1 rounded-full text-xs font-semibold ${
+            getValue()
+              ? "bg-green-100 text-green-800"
+              : "bg-yellow-100 text-yellow-800"
+          }`}
+        >
+          {getValue() ? "Aprobado" : "Pendiente"}
+        </span>
+      ),
     },
     {
-      accessorKey: "validated",
-      header: "Validated",
+      accessorKey: "verified",
+      header: "Verificado",
+      cell: ({ getValue }) => (
+        <span
+          className={`px-2 py-1 rounded-full text-xs font-semibold ${
+            getValue()
+              ? "bg-green-100 text-green-800"
+              : "bg-red-100 text-red-800"
+          }`}
+        >
+          {getValue() ? "Aprobado" : "Rechazado"}
+        </span>
+      ),
     },
+    // {
+    //   accessorKey: "verified",
+    //   header: "Verificado",
+    // },
+    // {
+    //   accessorKey: "validated",
+    //   header: "Validado",
+    // },
     {
       accessorKey: "edition_date",
-      header: "Edition Date",
+      header: "Fecha de edicion",
     },
-    {
-      accessorKey: "edition_time",
-      header: "Edition Time",
-    },
+    // {
+    //   accessorKey: "edition_time",
+    //   header: "Edition Time",
+    // },
   ];
+
+  const [sorting, setSorting] = React.useState([]);
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    state: {
+      sorting,
+    },
+    onSortingChange: setSorting,
   });
 
   return (
-    
     <div className="overflow-x-auto px-4 py-6 max-w-7xl mx-auto">
       <table className="w-full max-w-7xl mx-auto divide-y divide-gray-200 rounded-lg bg-white shadow-md">
         <thead className="bg-gray-100">
@@ -55,29 +93,31 @@ function TableAdmin({ data }) {
               {headerGroup.headers.map((header, index) => (
                 <th
                   key={header.id}
+                  onClick={header.column.getToggleSortingHandler()}
                   scope="col"
                   className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 ${
-                    index === 0
-                      ? "rounded-tl-lg"
-                      : index === headerGroup.headers.length - 1
-                      ? "rounded-tr-lg"
-                      : ""
+                    index === 0 ? "rounded-tl-lg" : ""
                   }`}
                 >
                   {flexRender(
                     header.column.columnDef.header,
                     header.getContext()
                   )}
+                  {
+                    {
+                      asc: "↑",
+                      desc: "↓",
+                    }[header.column.getIsSorted() ?? null]
+                  }
                 </th>
               ))}
               <th
-                  key="acciones"
-                  scope="col"
-                  className="w-230 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
-
-                >
-                  Acciones
-                </th>
+                key="acciones"
+                scope="col"
+                className="w-230 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 rounded-tr-lg"
+              >
+                Acciones
+              </th>
             </tr>
           ))}
         </thead>
@@ -89,16 +129,17 @@ function TableAdmin({ data }) {
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
-              <td>
+              <td className="px-6 py-4 whitespace-nowrap">
                 <button
-                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={()=>console.log(data[row.id]._id)}
+                  className="inline-flex items-center justify-center bg-green-500 bg-opacity-40 hover:bg-opacity-70 text-green-700 text-xs font-bold py-1 px-2 rounded mr-2"
+                  onClick={() => console.log(data[row.id]._id)}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
-                    className="w-4 h-4 inline-block mr-1"
+                    className="w-4 h-4 inline-block"
                   >
                     <path
                       strokeLinecap="round"
@@ -109,15 +150,13 @@ function TableAdmin({ data }) {
                   </svg>
                   Aprobar
                 </button>
-                <button
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                >
+                <button className="inline-flex items-center justify-center bg-red-500 bg-opacity-30 hover:bg-opacity-60 text-red-500 text-xs font-bold py-1 px-2 rounded mr-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
-                    className="w-4 h-4 inline-block mr-1"
+                    className="w-4 h-4 inline-block"
                   >
                     <path
                       strokeLinecap="round"
@@ -128,44 +167,40 @@ function TableAdmin({ data }) {
                   </svg>
                   Rechazar
                 </button>
-                <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                >
+                <button className="inline-flex items-center justify-center bg-blue-500 bg-opacity-40 hover:bg-opacity-70 text-blue-800 text-xs font-bold py-1 px-2 rounded">
                   <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  className="w-4 h-4 inline-block mr-1"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 4v12m0 0l-3-3m3 3l3-3m-6 6h6"
-                  />
-                </svg>
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    className="w-4 h-4 inline-block"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 4v12m0 0l-3-3m3 3l3-3m-6 6h6"
+                    />
+                  </svg>
                   Revisar
                 </button>
-                <button
-                className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded inline-flex items-center"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  className="w-4 h-4 mr-2"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 10h.01M12 10h.01M16 10h.01M21 16v-5a2 2 0 00-2-2H5a2 2 0 00-2 2v5a2 2 0 002 2h14l4 4-.01-4z"
-                  />
-                </svg>
-                Comentar
-              </button>
+                {/* <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    className="w-4 h-4 mr-2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 10h.01M12 10h.01M16 10h.01M21 16v-5a2 2 0 00-2-2H5a2 2 0 00-2 2v5a2 2 0 002 2h14l4 4-.01-4z"
+                    />
+                  </svg>
+                  Comentar
+                </button> */}
               </td>
             </tr>
           ))}
