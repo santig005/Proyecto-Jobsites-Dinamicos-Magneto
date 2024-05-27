@@ -1,5 +1,5 @@
 import Page from "../models/page.model.js";
-import { MongoClient } from 'mongodb';
+import { MongoClient,ObjectId } from 'mongodb';
 import dotenv from 'dotenv';
 dotenv.config();
 // Connection URL
@@ -44,5 +44,51 @@ export const getPageRequests=async(req,res)=>{
     }catch(error){
         console.error(`Error: ${error}`);
         res.status(500).send({ message: 'Failed to get pages' });
+    }
+};
+export const getCodePage=async(req,res)=>{
+    const {id}=req.body
+    try{
+        await client.connect();
+        const db = client.db('magneto-proyecto'); // replace with your database name
+        const collection = db.collection('pages'); // replace with 
+        const idp = new ObjectId(id);
+        const checked=true
+        const page = await collection.findOne({ _id: idp });
+        await collection.updateOne({ _id:idp }, { $set: { checked } });
+        res.status(200).send({page});
+    }catch(error){
+        console.error(`Error: ${error}`);
+        res.status(500).send({ message: 'Failed to get the page code' });
+    }
+};
+export const approvePage=async(req,res)=>{
+    const {id}=req.body
+    try{
+        await client.connect();
+        const db = client.db('magneto-proyecto'); // replace with your database name
+        const collection = db.collection('pages'); // replace with 
+        const idp = new ObjectId(id);
+        const approval_status="Aprobado"
+        await collection.updateOne({ _id:idp }, { $set: { approval_status } });
+        res.status(200).send();
+    }catch(error){
+        console.error(`Error: ${error}`);
+        res.status(500).send({ message: 'Failed approving the page' });
+    }
+};
+export const rejectPage=async(req,res)=>{
+    const {id}=req.body
+    try{
+        await client.connect();
+        const db = client.db('magneto-proyecto'); // replace with your database name
+        const collection = db.collection('pages'); // replace with 
+        const idp = new ObjectId(id);
+        const approval_status="Rechazado"
+        await collection.updateOne({ _id:idp }, { $set: { approval_status } });
+        res.status(200).send();
+    }catch(error){
+        console.error(`Error: ${error}`);
+        res.status(500).send({ message: 'Failed approving the page' });
     }
 };
