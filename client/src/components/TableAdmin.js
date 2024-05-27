@@ -149,7 +149,27 @@ function TableAdmin({ data,onDownload,onApproval,onRejection }) {
                 </td>
               ))}
               <td className="px-6 py-4 whitespace-nowrap">
-                <button
+                {data[row.id].checked ?
+                  (
+                    <div>
+                      <button className="inline-flex items-center justify-center bg-blue-500 bg-opacity-40 hover:bg-opacity-70 text-blue-800 text-xs font-bold py-1 px-2 rounded mr-2" onClick={() => onDownload(data[row.id]._id)}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    className="w-4 h-4 inline-block"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 4v12m0 0l-3-3m3 3l3-3m-6 6h6"
+                    />
+                  </svg>
+                  Revisar
+                </button>
+                      <button
                   className="inline-flex items-center justify-center bg-green-500 bg-opacity-40 hover:bg-opacity-70 text-green-700 text-xs font-bold py-1 px-2 rounded mr-2" onClick={() => onApproval(data[row.id]._id)}
                 >
                   <svg
@@ -185,7 +205,10 @@ function TableAdmin({ data,onDownload,onApproval,onRejection }) {
                   </svg>
                   Rechazar
                 </button>
-                <button className="inline-flex items-center justify-center bg-blue-500 bg-opacity-40 hover:bg-opacity-70 text-blue-800 text-xs font-bold py-1 px-2 rounded" onClick={() => onDownload(data[row.id]._id)}>
+                    </div>
+                  ) : (
+                    <div>
+                      <button className="inline-flex items-center justify-center bg-blue-500 bg-opacity-40 hover:bg-opacity-70 text-blue-800 text-xs font-bold py-1 px-2 rounded" onClick={() => onDownload(data[row.id]._id)}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -202,7 +225,12 @@ function TableAdmin({ data,onDownload,onApproval,onRejection }) {
                   </svg>
                   Revisar
                 </button>
-                <downloadCode data={data[row.id]._id} />
+                    </div>
+                  )
+                  
+                }
+                
+                
                 {/* <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
