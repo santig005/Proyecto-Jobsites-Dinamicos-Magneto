@@ -20,12 +20,10 @@ export const saveHtmlAndCss = async (req, res) => {
         const existingPage = await collection.findOne({ id_user });
 
         if (existingPage) {
-            await collection.updateOne({ id_user }, { $set: { htmlCode, cssCode,edition_date,edition_time } });
-            console.log("prepage updated");
+            await collection.updateOne({ id_user }, { $set: { htmlCode, cssCode,edition_date,edition_time,approval_status:"Pendiente",checked:false } });
         } else {
             const newPage = new Page({ id_user, username, email, htmlCode, cssCode,edition_time,edition_date });
             const result = await collection.insertOne(newPage);
-            console.log(`A document was inserted with the _id: ${result.insertedId}`);
         }
         //const result = await collection.insertOne(doc);
         res.status(200).send({ message: 'File saved successfully' });
