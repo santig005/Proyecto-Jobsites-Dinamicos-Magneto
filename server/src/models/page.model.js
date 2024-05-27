@@ -22,13 +22,13 @@ const pageSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    verified: {
+    checked: {
         type: Boolean,
         default: false
     },
-    validated: {
-        type: Boolean,
-        default: false
+    approval_status: {
+        type: String,
+        default: "Pendiente"
     },
     edition_time: {
         type: String,
