@@ -1,4 +1,5 @@
 import React from "react";
+
 //import data from "../assets/data.json";
 import {
   useReactTable,
@@ -8,7 +9,8 @@ import {
   getSortedRowModel,
 } from "@tanstack/react-table";
 
-function TableAdmin({ data }) {
+
+function TableAdmin({ data,onDownload,onApproval,onRejection }) {
   const columns = [
     {
       accessorKey: "_id",
@@ -23,23 +25,40 @@ function TableAdmin({ data }) {
       header: "Email",
     },
     {
-      accessorKey: "validated",
-      header: "Validado",
-      cell: ({ getValue }) => (
-        <span
-          className={`px-2 py-1 rounded-full text-xs font-semibold ${
-            getValue()
-              ? "bg-green-100 text-green-800"
-              : "bg-yellow-100 text-yellow-800"
-          }`}
-        >
-          {getValue() ? "Aprobado" : "Pendiente"}
-        </span>
-      ),
+      accessorKey: "approval_status",
+      header: "Estado de aprobación",
+      cell: ({ getValue }) => {
+        const value = getValue();
+        let bgColor, textColor;
+      
+        switch (value) {
+          case "Aprobado":
+            bgColor = "bg-green-100";
+            textColor = "text-green-800";
+            break;
+          case "Rechazado":
+            bgColor = "bg-red-100";
+            textColor = "text-red-800";
+            break;
+          case "Pendiente":
+            bgColor = "bg-yellow-100";
+            textColor = "text-yellow-800";
+            break;
+          default:
+            bgColor = "bg-gray-100";
+            textColor = "text-gray-800";
+        }
+      
+        return (
+          <span className={`px-2 py-1 rounded-full text-xs font-semibold ${bgColor} ${textColor}`}>
+            {value}
+          </span>
+        );
+      },
     },
     {
-      accessorKey: "verified",
-      header: "Verificado",
+      accessorKey: "checked",
+      header: "Revisión",
       cell: ({ getValue }) => (
         <span
           className={`px-2 py-1 rounded-full text-xs font-semibold ${
@@ -48,7 +67,7 @@ function TableAdmin({ data }) {
               : "bg-red-100 text-red-800"
           }`}
         >
-          {getValue() ? "Aprobado" : "Rechazado"}
+          {getValue() ? "Revisado" : "Pendiente"}
         </span>
       ),
     },
@@ -131,8 +150,7 @@ function TableAdmin({ data }) {
               ))}
               <td className="px-6 py-4 whitespace-nowrap">
                 <button
-                  className="inline-flex items-center justify-center bg-green-500 bg-opacity-40 hover:bg-opacity-70 text-green-700 text-xs font-bold py-1 px-2 rounded mr-2"
-                  onClick={() => console.log(data[row.id]._id)}
+                  className="inline-flex items-center justify-center bg-green-500 bg-opacity-40 hover:bg-opacity-70 text-green-700 text-xs font-bold py-1 px-2 rounded mr-2" onClick={() => onApproval(data[row.id]._id)}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -150,7 +168,7 @@ function TableAdmin({ data }) {
                   </svg>
                   Aprobar
                 </button>
-                <button className="inline-flex items-center justify-center bg-red-500 bg-opacity-30 hover:bg-opacity-60 text-red-500 text-xs font-bold py-1 px-2 rounded mr-2">
+                <button className="inline-flex items-center justify-center bg-red-500 bg-opacity-30 hover:bg-opacity-60 text-red-500 text-xs font-bold py-1 px-2 rounded mr-2" onClick={() => onRejection(data[row.id]._id)}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -167,7 +185,7 @@ function TableAdmin({ data }) {
                   </svg>
                   Rechazar
                 </button>
-                <button className="inline-flex items-center justify-center bg-blue-500 bg-opacity-40 hover:bg-opacity-70 text-blue-800 text-xs font-bold py-1 px-2 rounded">
+                <button className="inline-flex items-center justify-center bg-blue-500 bg-opacity-40 hover:bg-opacity-70 text-blue-800 text-xs font-bold py-1 px-2 rounded" onClick={() => onDownload(data[row.id]._id)}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -184,6 +202,7 @@ function TableAdmin({ data }) {
                   </svg>
                   Revisar
                 </button>
+                <downloadCode data={data[row.id]._id} />
                 {/* <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
