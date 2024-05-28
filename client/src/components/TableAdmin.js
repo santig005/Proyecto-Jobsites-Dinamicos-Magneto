@@ -71,22 +71,10 @@ function TableAdmin({ data,onDownload,onApproval,onRejection }) {
         </span>
       ),
     },
-    // {
-    //   accessorKey: "verified",
-    //   header: "Verificado",
-    // },
-    // {
-    //   accessorKey: "validated",
-    //   header: "Validado",
-    // },
     {
       accessorKey: "edition_date",
       header: "Fecha de edicion",
     },
-    // {
-    //   accessorKey: "edition_time",
-    //   header: "Edition Time",
-    // },
   ];
 
   const [sorting, setSorting] = React.useState([]);
