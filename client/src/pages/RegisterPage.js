@@ -12,7 +12,7 @@ const RegisterPage = () => {
 
   useEffect(() => {
     if(isAuthenticated) navigate('/');
-  },[isAuthenticated])
+  },[isAuthenticated, navigate])
 
   const onSubmit = async data => {
     signup(data)
@@ -31,14 +31,14 @@ const RegisterPage = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
           <div className="mb-4">
             <label htmlFor="username" className="block text-gray-700 font-bold mb-2">
-              Nombre de usuario
+              Nombre de Empresa
             </label>
             <input
               type="text"
               id="username"
-              {...register('username', { required: 'El nombre de usuario es obligatorio' })}
+              {...register('username', { required: 'El nombre de Empresa es obligatorio' })}
               className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 ${errors.username ? 'border-red-500' : ''}`}
-              placeholder="Ingresa tu nombre de usuario"
+              placeholder="Ingresa el nombre de Empresa"
             />
             {errors.username && <p className="text-red-500 text-sm mt-1">{errors.username.message}</p>}
           </div>
