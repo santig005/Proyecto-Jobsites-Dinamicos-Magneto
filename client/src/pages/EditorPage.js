@@ -204,8 +204,8 @@ function EditorPage() {
               </span>
             </>
           ) : (
-            <span className="flex items-center justify-center px-2 py-1 rounded-full text-xs font-semibold mr-4 bg-yellow-100 text-yellow-800">
-              Aún te falta guardar página
+            <span className="flex items-center justify-center px-2 py-1 rounded-full text-xs font-semibold mr-4 bg-red-100 text-red-800">
+              Aún te falta enviar la solicitud
             </span>
           )}
 
@@ -215,7 +215,7 @@ function EditorPage() {
             onClick={saveHtmlAndCss}
             className="bg-green-500 hover:bg-green-700 text-white font-bold text-sm py-1 px-2 rounded mr-4"
           >
-            Guardar Página
+            Enviar solicitud
           </Link>
           <button
             className="bg-green-500 hover:bg-green-700 text-white font-bold text-sm py-1 px-2 rounded mr-4"
