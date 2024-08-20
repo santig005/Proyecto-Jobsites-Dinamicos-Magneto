@@ -8,15 +8,28 @@ import { useNavigate } from 'react-router-dom';
 const LoginPage = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const {signin, errors: loginErrors, isAuthenticated} = useAuth();
+  const {signin, errors: loginErrors, isAuthenticated, user} = useAuth();
   const navigate = useNavigate();
   const onSubmit = data => {
     signin(data)
   };
 
+  // useEffect(() => {
+  //   if(isAuthenticated) navigate('/');
+  // },[isAuthenticated])
   useEffect(() => {
-    if(isAuthenticated) navigate('/');
-  },[isAuthenticated])
+    if (isAuthenticated) {
+      // Redirige según el rol del usuario
+      if (user.role === 'admin') {
+        navigate('/admin');
+      } else if (user.role === 'user') {
+        navigate('/');
+      } else{
+        navigate('/login');
+      }
+    }
+  }, [isAuthenticated, user, navigate]);
+
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
